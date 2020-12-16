@@ -1,25 +1,16 @@
 import os
 
 
-# def get_file_name(file_allname):
-#     """
-#     接收文件名称，包括后缀名称
-#     返回：生成列表fasta, 和不包括后缀名的名称file_name
-#     # file_allname = input("输入你要分析出的文件,包括后缀名\n")
-#     """
-#     try:
-#         # file_allname = input("输入你要分析出的文件,包括后缀名\n")
-#         p = file_allname.find(".")
-#         file_name = file_allname[:p]
-#         os.mkdir(".\\" + file_name)
-#         f = open(file_allname).read()
-#         fasta = f.split(">")
-#         return fasta, file_name
-#     except:
-#         print("请正确输入文件名称。")
+def list_name():
+    """
+    获取文件列表，判断是否有src文件目录
+    :return: 返回一个src目录中的所有文件名的列表
+    """
+    list_name = os.listdir(".\\src")
+    return list_name
 
 
-#
+# 已完成
 def file_name(file_allname):
     """
     传入文件的全名，返回文件的名称。
@@ -28,13 +19,16 @@ def file_name(file_allname):
     """
     try:
         # file_allname = input("输入你要分析出的文件,包括后缀名\n")
-        p = file_allname.find(".")
-        file_name = file_allname[:p]
+        q = file_allname.rfind(".")
+        s = file_allname.rfind("\\")
+        file_name = file_allname[s + 1:q]
+        # print(q,s)
         return file_name
     except:
         print("请正确输入文件名称。")
 
 
+# 已完成
 def fasta(file_allname):
     """
     需要传入file_allname的路径
@@ -50,6 +44,87 @@ def fasta(file_allname):
         print("请正确输入文件名称。")
 
 
+# 已完成，用这个
+def sequence_dict(fasta, fileName):
+    """
+    传入fasta的序列返回一个以gene和序列的映射字典
+    :param fasta:
+    :return:
+    """
+    sequenceDict = {}
+    sameDict = {}
+    index = 0
+    same = 0
+
+    for i in fasta:
+        if i:
+            index = index + 1
+            # i = ">" + i
+            b = i.find("[gene=")
+            c = i.find("[locus_tag")
+            # line_s = i.find(">")
+            line_e = i.rfind("]")
+            # i[line_s+2:line_e-1] = "theing"
+            # print(i)
+            gene_key = i[b:c - 1]
+            i = fileName + gene_key + i[line_e + 1:]
+            # print(i)
+            # i[line_s:line_e] = "> {} {}".format(fileName, gene_key)
+            if gene_key in sequenceDict.keys():
+                sameDict[gene_key] = sequenceDict[gene_key] + i
+                # sameDict[gene_key] = i
+                same = same + 1
+            else:
+                sequenceDict[gene_key] = i
+        else:
+            pass
+            # print("字段为空未写入字典{}，忽略此提示".format(i))
+    key_len = len(sequenceDict.keys())
+    same_gene_list = sameDict.keys()
+    print("一共找到" + str(key_len) + "个基因序列", "有{}".format(same) + "个为相同，以舍去")
+    print("相同基因分别为{}".format(same_gene_list))
+    return sequenceDict
+
+
+# 已完成，不更改序列名
+def sequence_dict_2(fasta):
+    """
+    传入fasta的序列返回一个以gene和序列的映射字典
+    :param fasta:
+    :return:
+    """
+    for names in list_name():
+        file_allname = ".\src" + names
+        sequenceDict = {}
+        index = 0
+        same = 0
+        fileName = file_name(file_allname)
+        for i in fasta:
+            if i:
+                index = index + 1
+                # i = ">" + i
+                b = i.find("[gene=")
+                c = i.find("[locus_tag")
+                # line_s = i.find(">")
+                line_e = i.rfind("]")
+                # i[line_s+2:line_e-1] = "theing"
+                # print(i)
+                gene_key = i[b:c - 1]
+                i = fileName + gene_key + i[line_e + 1:]
+                print(i)
+                # i[line_s:line_e] = "> {} {}".format(fileName, gene_key)
+                if gene_key in sequenceDict.keys():
+                    # sequenceDict[gene_key] = sequenceDict[gene_key] + i
+                    same = same + 1
+                else:
+                    sequenceDict[gene_key] = i
+            else:
+                print("字段为空未写入{}".format(i))
+        key_len = len(sequenceDict.keys())
+        print("一共找到" + str(key_len) + "个基因", "有{}".format(same) + "为相同，以舍去")
+        return sequenceDict
+
+
 def write_sequence_file(fasta, file_name="bulid"):
     """
     分析出序列，得出文件
@@ -58,11 +133,6 @@ def write_sequence_file(fasta, file_name="bulid"):
     :param file_name:
     :return: 在bulid中生成需要的sequence文件
     """
-    # file_name = "Berchemia berchemiifolia"
-    # if os.os.path.exists(file_name):
-    #     pass
-    # else:
-    #     os.mkdir(file_name)
     for i in fasta:
         if i:
             i = ">" + i
@@ -77,10 +147,15 @@ def write_sequence_file(fasta, file_name="bulid"):
             print("未写入{}".format(i))
 
 
-def list_name():
+def mkdir(path):
     """
-    获取文件列表，判断是否有src文件目录
-    :return: 返回一个src目录中的所有文件名的列表
+    创建文件夹
+    file = "G:\\xxoo\\test"
+    mkdir(file)
     """
-    list_name = os.listdir(".\\src")
-    return list_name
+    folder = os.path.exists(path)
+
+    if not folder:  # 判断是否存在文件夹如果不存在则创建为文件夹
+        os.makedirs(path)  # makedirs 创建文件时如果路径不存在会创建这个路径
+    else:
+        print("{}已存在".format(path))

@@ -3,3 +3,8 @@ src/
 test/
 草稿*
 .idea/
+bulid/
+__pycache__/
+out_species_sequence.py
+#sequence_class.py
+.gitignore
