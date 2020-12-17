@@ -67,7 +67,7 @@ def sequence_dict(fasta, fileName):
             # i[line_s+2:line_e-1] = "theing"
             # print(i)
             gene_key = i[b:c - 1]
-            i = fileName + gene_key + i[line_e + 1:]
+            i = ">" + fileName + gene_key + i[line_e + 1:]
             # print(i)
             # i[line_s:line_e] = "> {} {}".format(fileName, gene_key)
             if gene_key in sequenceDict.keys():
@@ -82,7 +82,7 @@ def sequence_dict(fasta, fileName):
     key_len = len(sequenceDict.keys())
     same_gene_list = sameDict.keys()
     print("一共找到" + str(key_len) + "个基因序列", "有{}".format(same) + "个为相同，以舍去")
-    print("相同基因分别为{}".format(same_gene_list))
+    print("相同基因分别为{}\n".format(same_gene_list))
     return sequenceDict
 
 
@@ -125,7 +125,32 @@ def sequence_dict_2(fasta):
         return sequenceDict
 
 
-def write_sequence_file(fasta, file_name="bulid"):
+# 已写完，用这个需要传入字典和不包括后缀的名称名，
+def write_sequence_file(sequenceDict, fileName="sequence"):
+    """分析出序列，得出文件
+    接收fasta列表，文件夹名称
+    """
+    # fileName = "Berchemia berchemiifolia"
+    # sequenceDict = {}
+    items = sequenceDict.items()
+    mkdir(".\\bulid\{}".format(fileName))
+    a = 0
+    for fastas in items:
+        sequence = fastas[1]
+        gene = fastas[0]
+        if sequence:
+            a = a + 1
+            # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
+            sequence_name = fileName + "_" + gene + ".fasta"
+            sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
+            sequence_file.write(sequence)
+        else:
+            pass
+            # print("序列为空，未写入文件，{}".format(sequence))
+    print("{}已写入到 bulid 文件夹中\n".format(fileName))
+
+
+def write_sequence_file2(fasta, file_name="bulid"):
     """
     分析出序列，得出文件
     接收fasta列表，输出的文件夹名称
@@ -145,6 +170,33 @@ def write_sequence_file(fasta, file_name="bulid"):
         # sequence_file.close()
         else:
             print("未写入{}".format(i))
+
+
+def dict_list():
+    dictList = []
+    for names in list_name():
+        file_allname = ".\src\\" + names
+        print("执行 " + names)
+        fileName = file_name(file_allname)
+        fast = fasta(file_allname)
+        dict = sequence_dict(fast, fileName)
+        dictList.append(dict)
+    return dictList
+
+
+def big_dict(list):
+    bigDict = {}
+    for i_dict in list:
+        # print(i_dict)
+        for i in i_dict.keys():
+            # print(i)
+            if i in bigDict.keys():
+                bigDict[i] = bigDict[i] + i_dict[i]
+            else:
+                bigDict[i] = i_dict[i]
+    # for i in bigDict.items():
+    #     print(i)
+    return bigDict
 
 
 def mkdir(path):
