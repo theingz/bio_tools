@@ -6,8 +6,17 @@ def list_name():
     获取文件列表，判断是否有src文件目录
     :return: 返回一个src目录中的所有文件名的列表
     """
-    list_name = os.listdir(".\\src")
-    return list_name
+    folder = os.path.exists(".\\src")
+    if not folder:  # 判断是否存在文件夹如果不存在则创建为文件夹
+        os.makedirs(".\\src")  # makedirs 创建文件时如果路径不存在会创建这个路径
+    else:
+        pass
+        # print("{}已存在".format(path))
+    try:
+        list_name = os.listdir(".\\src")
+        return list_name
+    except:
+        print("请正确放入文件到src文件夹中")
 
 
 # 已完成
@@ -135,19 +144,22 @@ def write_sequence_file(sequenceDict, fileName="sequence"):
     items = sequenceDict.items()
     mkdir(".\\bulid\{}".format(fileName))
     a = 0
-    for fastas in items:
-        sequence = fastas[1]
-        gene = fastas[0]
-        if sequence:
-            a = a + 1
-            # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
-            sequence_name = fileName + "_" + gene + ".fasta"
-            sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
-            sequence_file.write(sequence)
-        else:
-            pass
-            # print("序列为空，未写入文件，{}".format(sequence))
-    print("{}已写入到 bulid 文件夹中\n".format(fileName))
+    if items:
+        for fastas in items:
+            sequence = fastas[1]
+            gene = fastas[0]
+            if sequence:
+                a = a + 1
+                # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
+                sequence_name = fileName + "_" + gene + ".fasta"
+                sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
+                sequence_file.write(sequence)
+            else:
+                pass
+                # print("序列为空，未写入文件，{}".format(sequence))
+        print("{}已写入到 bulid 文件夹中\n".format(fileName))
+    else:
+        print("序列为空，未写入文件")
 
 
 def write_sequence_file2(fasta, file_name="bulid"):

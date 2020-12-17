@@ -1,11 +1,8 @@
-import os, re
 from tools import *
 
 # file_allname = input("输入你要分析出的文件,包括后缀名\n")
-
 # print(fileName)
 # bigDict = {}
-
 
 if __name__ == '__main__':
     """主函数
