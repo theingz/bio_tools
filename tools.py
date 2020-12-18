@@ -19,8 +19,8 @@ def list_name():
         print("请正确放入文件到src文件夹中")
 
 
-# 已完成
-def file_name(file_allname):
+# 已完成,传入str全名(包括后缀)，返回str中间名
+def file_name(file_allname: str):
     """
     传入文件的全名，返回文件的名称。
     :param file_allname:
@@ -37,8 +37,8 @@ def file_name(file_allname):
         print("请正确输入文件名称。")
 
 
-# 已完成
-def fasta(file_allname):
+# 已完成，传入str全名，返回list,文件fasta格式的squence的list
+def fasta(file_allname: str):
     """
     需要传入file_allname的路径
     :param file_allname:
@@ -53,7 +53,7 @@ def fasta(file_allname):
         print("请正确输入文件名称。")
 
 
-# 已完成，用这个
+# 已完成，传入list,fast_squence,返回key为[gene],val为squence的字典。
 def sequence_dict(fasta, fileName):
     """
     传入fasta的序列返回一个以gene和序列的映射字典
@@ -90,7 +90,7 @@ def sequence_dict(fasta, fileName):
             # print("字段为空未写入字典{}，忽略此提示".format(i))
     key_len = len(sequenceDict.keys())
     same_gene_list = sameDict.keys()
-    print("一共找到" + str(key_len) + "个基因序列", "有{}".format(same) + "个为相同，以舍去")
+    print("一共找到" + str(key_len) + "个基因序列", "有{}".format(same) + "个为相同")
     print("相同基因分别为{}\n".format(same_gene_list))
     return sequenceDict
 
@@ -147,11 +147,11 @@ def write_sequence_file(sequenceDict, fileName="sequence"):
     if items:
         for fastas in items:
             sequence = fastas[1]
-            gene = fastas[0]
+            gene = "_" + fastas[0]
             if sequence:
                 a = a + 1
                 # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
-                sequence_name = fileName + "_" + gene + ".fasta"
+                sequence_name = fileName + gene + ".fasta"
                 sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
                 sequence_file.write(sequence)
             else:
@@ -162,6 +162,7 @@ def write_sequence_file(sequenceDict, fileName="sequence"):
         print("序列为空，未写入文件")
 
 
+# 已写完，看需求可用
 def write_sequence_file2(fasta, file_name="bulid"):
     """
     分析出序列，得出文件
@@ -184,7 +185,12 @@ def write_sequence_file2(fasta, file_name="bulid"):
             print("未写入{}".format(i))
 
 
+# 未写完，不可用
 def dict_list():
+    """
+    接收字典
+    返回一个字典的list
+    """
     dictList = []
     for names in list_name():
         file_allname = ".\src\\" + names
@@ -196,7 +202,11 @@ def dict_list():
     return dictList
 
 
+# 已写完，接收一个dict的list,返回大的dict
 def big_dict(list):
+    """
+    接收一个dict的list,返回大的dict
+    """
     bigDict = {}
     for i_dict in list:
         # print(i_dict)
@@ -211,6 +221,25 @@ def big_dict(list):
     return bigDict
 
 
+# auto_lable_seq.py
+
+def wite_merge(dict, fileName="sequence"):
+    """
+    传入字典，和文件名称
+    合并一个字典的所有值为一个文件
+    """
+
+    # dictw = {}
+    big_str = ""
+    mkdir(".\\bulid\{}".format(fileName))
+    for gene in dict.keys():
+        big_str = big_str + dict[gene] + "\n"
+    sequence_name = fileName + ".fasta"
+    sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
+    sequence_file.write(big_str)
+
+
+# 创建文件夹，传入path路径，
 def mkdir(path):
     """
     创建文件夹

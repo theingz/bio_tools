@@ -7,13 +7,12 @@ if __name__ == '__main__':
     """
     dictList = []
     for names in list_name():
-        file_allname = ".\src\\" + names
+        fileAllname = ".\src\\" + names
         print("执行 " + names)
-        fileName = file_name(file_allname)
-        fast = fasta(file_allname)
+        fileName = file_name(fileAllname)
+        fast = fasta(fileAllname)
         dict = sequence_dict(fast, fileName)
         dictList.append(dict)
     bigDict = big_dict(dictList)
     write_sequence_file(bigDict)
-
-print("已完成")
+    print("已完成")

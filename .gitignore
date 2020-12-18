@@ -6,5 +6,5 @@ test/
 bulid/
 __pycache__/
 out_species_sequence.py
-#sort_sequence.py
+#sort_seq.py
 .gitignore
