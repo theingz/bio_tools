@@ -4,21 +4,23 @@
 
 ## 功能
 1. 分割序列
+
  把需要分割的源文件放入src文件夹中执行，程序会自动执行，执行完毕会在目录里生成bulid文件夹
 ```shell script
 python split_seq.py
 ```
 2. gene 聚类
+
 把需要分割的源文件放入src文件夹中执行，执行完毕会在目录里生成bulid文件夹，默认名称为sequence
 ```shell script
 python sort_seq.py
 ```
 3. 自动标注
 
-把已经有的csv文件，添加到source文件中命名为lable.csv，在终端中执行
+把已经有的csv文件，添加到source文件中命名为lable.csv，把对应的基因序列文件放在src文件夹中，在终端中执行命令
 执行程序可在bulid文件夹中生成标注好的fasta格式的文件
 ```shell script
-python auto_lable_seq.py
+python autoLable_seq.py
 ```
 
 **注意**
@@ -30,5 +32,7 @@ atpB,56556,58052,-
 atpE,56158,56559,-
 ```
 2. src中fasta文件未标注的序列中第一行标注结尾为"]"，没有请自行添加
+
+
 
 

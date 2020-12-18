@@ -221,8 +221,7 @@ def big_dict(list):
     return bigDict
 
 
-# auto_lable_seq.py
-
+# autoLable_seq.py
 def wite_merge(dict, fileName="sequence"):
     """
     传入字典，和文件名称
@@ -251,4 +250,4 @@ def mkdir(path):
     if not folder:  # 判断是否存在文件夹如果不存在则创建为文件夹
         os.makedirs(path)  # makedirs 创建文件时如果路径不存在会创建这个路径
     else:
-        print("{}已存在".format(path))
+        print("{}已存在，内容以修改".format(path))

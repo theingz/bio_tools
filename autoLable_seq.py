@@ -1,4 +1,5 @@
 from tools import *
+import sys
 
 
 ## 核心算法
@@ -19,7 +20,9 @@ def get_lable_list():
         # print(ls)
         return ls
     except:
+        mkdir(".\source")
         print("请在source文件夹中放入lable.csv文件")
+        sys.exit()
 
 
 ## 已写完，传入文件路径，得到他的整个序列。可能会有很多bug
@@ -46,19 +49,35 @@ def dict(full_sequence: str, lable_list):
     sequenceDict = {}
     sameDict = {}
     same = 0
+    transline = full_sequence[::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
+
     for i in lable_list:
-        gene_key = "[gene=" + i[0] + "]"
-        first = int(i[1]) - 1
-        last = int(i[2])
-        li_for = i[3]
-        # print(gene_key, first, last, li_for)
-        i = ">" + fileName + "_" + gene_key + "\n" + full_sequence[first:last]
-        if gene_key in sequenceDict.keys():
-            sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + i
-            sameDict[gene_key] = sequenceDict[gene_key] + i
-            same = same + 1
+        if i[0]:
+            gene_key = "[gene={}]".format(i[0])
+            first = int(i[1]) - 1
+            last = int(i[2])
+            li_for = i[3]
+            # print(gene_key, first, last, li_for)
+            if li_for == "+":
+                i = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n" + full_sequence[first:last]
+                if gene_key in sequenceDict.keys():
+                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + i
+                    sameDict[gene_key] = sequenceDict[gene_key] + i
+                    same = same + 1
+                else:
+                    sequenceDict[gene_key] = i
+            elif li_for == "-":
+                i = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n" + transline[first:last]
+                if gene_key in sequenceDict.keys():
+                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + i
+                    sameDict[gene_key] = sequenceDict[gene_key] + i
+                    same = same + 1
+                else:
+                    sequenceDict[gene_key] = i
+            else:
+                pass
         else:
-            sequenceDict[gene_key] = i
+            pass
     # print(dict)
     key_len = len(sequenceDict.keys())
     same_gene_list = sameDict.keys()
