@@ -58,25 +58,28 @@ def dict(full_sequence: str, lable_list):
             last = int(i[2])
             li_for = i[3]
             # print(gene_key, first, last, li_for)
-            if li_for == "+":
-                head = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n"
-                if gene_key in sequenceDict.keys():
-                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + head + full_sequence[first:last]
-                    sameDict[gene_key] = sequenceDict[gene_key] + "\n" + head + full_sequence[first:last]
-                    same = same + 1
-                else:
-                    sequenceDict[gene_key] = head + full_sequence[first:last]
-            elif li_for == "-":
-                transline = full_sequence[first:last][::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
-                head = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n"
-                if gene_key in sequenceDict.keys():
-                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + head + transline
-                    sameDict[gene_key] = sequenceDict[gene_key] + head + transline
-                    same = same + 1
-                else:
-                    sequenceDict[gene_key] = head + transline
-            else:
+            if i[4]:
                 pass
+            else:
+                if li_for == "+":
+                    head = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n"
+                    if gene_key in sequenceDict.keys() and sequenceDict[gene_key] == head + full_sequence[first:last]:
+                        # sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + head + full_sequence[first:last]
+                        sameDict[gene_key] = sequenceDict[gene_key] + "\n" + head + full_sequence[first:last]
+                        same = same + 1
+                    else:
+                        sequenceDict[gene_key] = head + full_sequence[first:last]
+                elif li_for == "-":
+                    transline = full_sequence[first:last][::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
+                    head = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n"
+                    if gene_key in sequenceDict.keys() and sequenceDict[gene_key] == head + transline:
+                        # sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + head + transline
+                        sameDict[gene_key] = sequenceDict[gene_key] + head + transline
+                        same = same + 1
+                    else:
+                        sequenceDict[gene_key] = head + transline
+                else:
+                    pass
         else:
             pass
     # print(dict)
