@@ -59,22 +59,22 @@ def dict(full_sequence: str, lable_list):
             li_for = i[3]
             # print(gene_key, first, last, li_for)
             if li_for == "+":
-                i = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n" + full_sequence[first:last]
+                head = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n"
                 if gene_key in sequenceDict.keys():
-                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + i
-                    sameDict[gene_key] = sequenceDict[gene_key] + i
+                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + head + full_sequence[first:last]
+                    sameDict[gene_key] = sequenceDict[gene_key] + "\n" + head + full_sequence[first:last]
                     same = same + 1
                 else:
-                    sequenceDict[gene_key] = i
+                    sequenceDict[gene_key] = head + full_sequence[first:last]
             elif li_for == "-":
                 transline = full_sequence[first:last][::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
-                i = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n" + transline
+                head = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n"
                 if gene_key in sequenceDict.keys():
-                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + i
-                    sameDict[gene_key] = sequenceDict[gene_key] + i
+                    sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + head + transline
+                    sameDict[gene_key] = sequenceDict[gene_key] + head + transline
                     same = same + 1
                 else:
-                    sequenceDict[gene_key] = i
+                    sequenceDict[gene_key] = head + transline
             else:
                 pass
         else:
