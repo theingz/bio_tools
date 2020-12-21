@@ -49,7 +49,7 @@ def dict(full_sequence: str, lable_list):
     sequenceDict = {}
     sameDict = {}
     same = 0
-    transline = full_sequence[::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
+    # transline = full_sequence[::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
 
     for i in lable_list:
         if i[0]:
@@ -67,7 +67,8 @@ def dict(full_sequence: str, lable_list):
                 else:
                     sequenceDict[gene_key] = i
             elif li_for == "-":
-                i = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n" + transline[first:last]
+                transline = full_sequence[first:last][::-1].replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g').upper()
+                i = ">" + fileName + " " + gene_key + " [locus_tag=theing]" + "\n" + transline
                 if gene_key in sequenceDict.keys():
                     sequenceDict[gene_key] = sequenceDict[gene_key] + "\n" + i
                     sameDict[gene_key] = sequenceDict[gene_key] + i
