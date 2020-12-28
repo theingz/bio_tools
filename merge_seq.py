@@ -11,14 +11,14 @@ def write_sequence(fastList: list):
             sequence_index = fast.find("\n")
             fileName = fast[first + 1:last - 1]
             sequence = fast[sequence_index + 1:]
-            sequence_file = open('.\\bulid\sort\{}'.format(fileName + ".fasta"), 'a')
+            sequence_file = open('.\\bulid\\sort\\{}'.format(fileName + ".fasta"), 'a')
             sequence_file.write(sequence)
 
         else:
             pass
 
 
-def add_head(path=".\\bulid\sort\\"):
+def add_head(path=".\\bulid\\marge\\"):
     for files in list_name(path):
         fileName = file_name(files)
         allSequence = open(path + files).read()
@@ -32,8 +32,8 @@ def add_head(path=".\\bulid\sort\\"):
 
 if __name__ == '__main__':
     srcPath = ".\\src\\sequence\\"
-    bulidPath = ".\\bulid\sort\\"
-    mkdir('.\\bulid\sort')
+    bulidPath = ".\\bulid\\marge\\"
+    mkdir('.\\bulid\\marge\\')
     for names in list_name(srcPath):
         file_allname = srcPath + names
         print("执行 " + names)
