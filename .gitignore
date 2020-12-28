@@ -10,3 +10,5 @@ out_species_sequence.py
 #cluster_seq.py
 .gitignore
 all.json
+mega_mao
+aut_compare_seq.py
