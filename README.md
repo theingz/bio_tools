@@ -13,7 +13,7 @@ python split_seq.py
 
 把需要分割的源文件放入src文件夹中执行，执行完毕会在目录里生成bulid文件夹，默认名称为sequence
 ```shell script
-python sort_seq.py
+python cluster_seq.py
 ```
 3. 自动标注
 

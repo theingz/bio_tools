@@ -1,19 +1,19 @@
 import os
 
 
-def list_name():
+def list_name(path=".\\src\\"):
     """
     获取文件列表，判断是否有src文件目录
     :return: 返回一个src目录中的所有文件名的列表
     """
-    folder = os.path.exists(".\\src")
+    folder = os.path.exists(path)
     if not folder:  # 判断是否存在文件夹如果不存在则创建为文件夹
-        os.makedirs(".\\src")  # makedirs 创建文件时如果路径不存在会创建这个路径
+        os.makedirs(path)  # makedirs 创建文件时如果路径不存在会创建这个路径
     else:
         pass
         # print("{}已存在".format(path))
     try:
-        list_name = os.listdir(".\\src")
+        list_name = os.listdir(path)
         return list_name
     except:
         print("请正确放入文件到src文件夹中")
@@ -66,22 +66,15 @@ def sequence_dict(fasta, fileName):
     same = 0
 
     for i in fasta:
-        if i:
-            index = index + 1
-            # i = ">" + i
-            b = i.find("[gene=")
-            c = i.find("[locus_tag")
-            # line_s = i.find(">")
-            line_e = i.rfind("]")
-            # i[line_s+2:line_e-1] = "theing"
-            # print(i)
-            gene_key = i[b:c - 1]
-            i = ">" + fileName + gene_key + i[line_e + 1:]
-            # print(i)
-            # i[line_s:line_e] = "> {} {}".format(fileName, gene_key)
+        index = index + 1
+        b = i.find("[gene=")
+        c = i.find("[locus_tag")
+        line_e = i.rfind("]")
+        gene_key = i[b:c - 1]
+        i = ">" + fileName + " " + gene_key + i[line_e + 1:]
+        if i and gene_key:
             if gene_key in sequenceDict.keys():
                 sameDict[gene_key] = sequenceDict[gene_key] + i
-                # sameDict[gene_key] = i
                 same = same + 1
             else:
                 sequenceDict[gene_key] = i
@@ -142,17 +135,18 @@ def write_sequence_file(sequenceDict, fileName="sequence"):
     # fileName = "Berchemia berchemiifolia"
     # sequenceDict = {}
     items = sequenceDict.items()
-    mkdir(".\\bulid\{}".format(fileName))
+    # path = ".\\bulid\cluster\\" + fileName
+    mkdir(".\\bulid\cluster\{}".format(fileName))
     a = 0
     if items:
-        for fastas in items:
+        for fastas in sorted(items):
             sequence = fastas[1]
             gene = "_" + fastas[0]
             if sequence:
                 a = a + 1
                 # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
                 sequence_name = fileName + gene + ".fasta"
-                sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
+                sequence_file = open('.\\bulid\cluster\{}\{}'.format(fileName, sequence_name), 'w')
                 sequence_file.write(sequence)
             else:
                 pass
@@ -222,7 +216,7 @@ def big_dict(list):
 
 
 # autoLable_seq.py
-def wite_merge(dict, fileName="sequence"):
+def write_merge(dict, fileName="sequence"):
     """
     传入字典，和文件名称
     合并一个字典的所有值为一个文件
@@ -231,11 +225,23 @@ def wite_merge(dict, fileName="sequence"):
     # dictw = {}
     big_str = ""
     mkdir(".\\bulid\{}".format(fileName))
-    for gene in dict.keys():
+    for gene in sorted(dict.keys()):
         big_str = big_str + dict[gene] + "\n"
     sequence_name = fileName + ".fasta"
     sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
     sequence_file.write(big_str)
+
+
+# 合并文件夹中的文件为一个大文件
+def path_file_merge(path):
+    if "allsequence.fas" in list_name(path):
+        pass
+    else:
+        for names in list_name(path):
+            file_allname = path + names
+            myStr = open(file_allname).read()
+            sequence_file2 = open('{}\\{}'.format(path, "allsequence.fas"), 'a')
+            sequence_file2.write(myStr)
 
 
 # 创建文件夹，传入path路径，
