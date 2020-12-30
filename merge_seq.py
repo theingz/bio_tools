@@ -2,18 +2,17 @@ from tools import *
 import os
 
 
-def write_sequence(fastList: list):
+def write_sequence(fastList: list, path):
     for fast in fastList:
         if fast:
-            fast = ">" + fast
+            # fast = ">" + fast
             first = fast.find(">")
             last = fast.find("gene")
             sequence_index = fast.find("\n")
             fileName = fast[first + 1:last - 1]
             sequence = fast[sequence_index + 1:]
-            sequence_file = open('.\\bulid\\sort\\{}'.format(fileName + ".fasta"), 'a')
+            sequence_file = open('{}{}'.format(path, fileName + ".fasta"), 'a')
             sequence_file.write(sequence)
-
         else:
             pass
 
@@ -31,14 +30,16 @@ def add_head(path=".\\bulid\\marge\\"):
 
 
 if __name__ == '__main__':
-    srcPath = ".\\src\\sequence\\"
-    bulidPath = ".\\bulid\\marge\\"
-    mkdir('.\\bulid\\marge\\')
-    for names in list_name(srcPath):
-        file_allname = srcPath + names
-        print("执行 " + names)
-        fastaList = fasta(file_allname)
-        write_sequence(fastaList)
-    add_head(bulidPath)
-    path_file_merge(bulidPath)
+    readPath = ".\\bulid\\cluster\\use\\"
+    outPath = ".\\bulid\\marge\\"
+    mkdir(outPath)
+    listName = list_name(readPath)
+    for names in listName:
+        if os.path.isfile(readPath+names):
+            file_allname = readPath + names
+            print("执行 " + names)
+            fastaList = fasta(file_allname)
+            write_sequence(fastaList, outPath)
+    add_head(outPath)
+    path_file_merge(outPath)
     print("已完成")

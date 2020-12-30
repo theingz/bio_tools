@@ -47,8 +47,14 @@ def fasta(file_allname: str):
     try:
         # file_allname = input("输入你要分析出的文件,包括后缀名\n")
         f = open(file_allname).read()
-        fasta = f.split(">")
-        return fasta
+        fasts = f.split(">")
+        index = 0
+        for fast in fasts:
+            if fast:
+                fast = ">" + fast
+                fasts[index] = fast
+                index = index + 1
+        return fasts
     except:
         print("请正确输入文件名称。")
 
@@ -128,7 +134,7 @@ def sequence_dict_2(fasta):
 
 
 # 已写完，用这个需要传入字典和不包括后缀的名称名，
-def write_sequence_file(sequenceDict, fileName="sequence"):
+def write_sequence_file(sequenceDict, path=".\\bulid\\cluster\\", fileName="sequence"):
     """分析出序列，得出文件
     接收fasta列表，文件夹名称
     """
@@ -136,7 +142,7 @@ def write_sequence_file(sequenceDict, fileName="sequence"):
     # sequenceDict = {}
     items = sequenceDict.items()
     # path = ".\\bulid\cluster\\" + fileName
-    mkdir(".\\bulid\cluster\{}".format(fileName))
+    mkdir(path)
     a = 0
     if items:
         for fastas in sorted(items):
@@ -146,7 +152,7 @@ def write_sequence_file(sequenceDict, fileName="sequence"):
                 a = a + 1
                 # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
                 sequence_name = fileName + gene + ".fasta"
-                sequence_file = open('.\\bulid\cluster\{}\{}'.format(fileName, sequence_name), 'w')
+                sequence_file = open(path + "\\" + sequence_name, 'w')
                 sequence_file.write(sequence)
             else:
                 pass
