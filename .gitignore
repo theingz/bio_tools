@@ -3,11 +3,11 @@ test/
 草稿*
 .idea/
 bulid/
-source/
+dataInfor/
 src/
 __pycache__/
 out_species_sequence.py
-#cluster_seq.py
+#class_seq.py
 .gitignore
 all.json
 mega_mao/
