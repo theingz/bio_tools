@@ -1,4 +1,4 @@
-from tools import *
+from bin.tools import *
 
 # file_allname = input("输入你要分析出的文件,包括后缀名\n")
 # print(fileName)
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     write_sequence_file()
     """
     for names in list_name():
-        file_allname = ".\src\\" + names
+        file_allname = "..\\src\\" + names
         print("执行 " + names)
         fileName = file_name(file_allname)
         fast = fasta(file_allname)

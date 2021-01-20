@@ -21,7 +21,7 @@ def cluster_seq():
     """
     dictList = []
     readPath = "..\\src\\"
-    outPath = "..\\bulid\\cluster\\"
+    outPath = "..\\bulid\\class\\"
     for names in list_name(readPath):
         fileAllname = readPath + names
         print("执行 " + names)

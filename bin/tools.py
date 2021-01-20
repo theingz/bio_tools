@@ -1,7 +1,7 @@
 import os
 
 
-def list_name(path=".\\src\\"):
+def list_name(path="..\\src\\"):
     """
     获取文件列表，判断是否有src文件目录
     :return: 返回一个src目录中的所有文件名的列表
@@ -116,19 +116,13 @@ def sequence_dict_2(fasta):
         for i in fasta:
             if i:
                 index = index + 1
-                # i = ">" + i
                 b = i.find("[gene=")
                 c = i.find("[locus_tag")
-                # line_s = i.find(">")
                 line_e = i.rfind("]")
-                # i[line_s+2:line_e-1] = "theing"
-                # print(i)
                 gene_key = i[b:c - 1]
                 i = fileName + gene_key + i[line_e + 1:]
-                print(i)
-                # i[line_s:line_e] = "> {} {}".format(fileName, gene_key)
                 if gene_key in sequenceDict.keys():
-                    # sequenceDict[gene_key] = sequenceDict[gene_key] + i
+                    sequenceDict[gene_key] = sequenceDict[gene_key] + i
                     same = same + 1
                 else:
                     sequenceDict[gene_key] = i
@@ -140,14 +134,13 @@ def sequence_dict_2(fasta):
 
 
 # 已写完，用这个需要传入字典和不包括后缀的名称名，
-def write_sequence_file(sequenceDict, path=".\\bulid\\cluster\\", fileName="sequence", findSeqNaem=True):
+def write_sequence_file(sequenceDict, path="..\\bulid\\cluster\\", fileName="sequence", findSeqNaem=True):
     """
     接收一个字典，
     """
     # fileName = "Berchemia berchemiifolia"
     # sequenceDict = {}
     items = sequenceDict.items()
-    # path = ".\\bulid\cluster\\" + fileName
     mkdir(path)
     a = 0
     if items:
@@ -192,23 +185,6 @@ def write_sequence_file2(fasta, file_name="bulid"):
         # sequence_file.close()
         else:
             print("未写入{}".format(i))
-
-
-# 未写完，不可用
-# def dict_list():
-#     """
-#     接收字典
-#     返回一个字典的list
-#     """
-#     dictList = []
-#     for names in list_name():
-#         file_allname = ".\src\\" + names
-#         print("执行 " + names)
-#         fileName = file_name(file_allname)
-#         fast = fasta(file_allname)
-#         dict = sequence_dict(fast, fileName)
-#         dictList.append(dict)
-#     return dictList
 
 
 # 已写完，接收一个dict的list,返回大的dict

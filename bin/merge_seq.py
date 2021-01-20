@@ -1,4 +1,4 @@
-from tools import *
+from bin.tools import *
 import os
 
 
@@ -7,14 +7,14 @@ def name_seq_dict(fastList: list):
     csv2 = ['']
     a = 0
     for fast in sorted(fastList):
-        a =a+1
+        a = a + 1
         if fast:
             # fast = ">" + fast
             first = fast.find(">")
             last = fast.find("gene")
             sequence_index = fast.find("\n")
             fileName = fast[first + 1:last - 1]
-            sequence = fast[sequence_index + 1:].replace("\n", "").replace(" ","").replace("\t","").replace("\r","")
+            sequence = fast[sequence_index + 1:].replace("\n", "").replace(" ", "").replace("\t", "").replace("\r", "")
             seqLen = len(sequence)
             csv2.append(str(seqLen))
             # inforList = [sequence, seqLen]
@@ -30,32 +30,29 @@ def name_seq_dict(fastList: list):
     return seqDict
 
 
-def add_head(path=".\\bulid\\marge\\"):
+def add_head(path="..\\bulid\\marge\\"):
+    """
+    添加头信息头，
+    """
     for files in sorted(list_name(path)):
         fileName = file_name(files)
         allSequence = open(path + files).read()
         if ">" in allSequence:
             continue
         else:
-            newAllSequence = ">{}".format(fileName) + "\n" + allSequence
+            newAllSequence = ">{}".format(fileName) + "\n" + allSequence + "\n"
             sequence_file = open(path + files, 'w')
             sequence_file.write(newAllSequence)
 
 
 if __name__ == '__main__':
-    readPath = ".\\bulid\\megax\\aligned\\"
-    outPath = ".\\bulid\\merged\\"
+    readPath = "..\\bulid\\megax\\aligned-58gene\\"
+    outPath = "..\\bulid\\merged\\aligned-58gene\\"
     mkdir(outPath)
     listName = list_name(readPath)
     dictList = []
-    # seqInfo = []
     for names in listName:
         if os.path.isfile(readPath + names) and "fasta" in names:
-            # nafr = names.find("gene")
-            # nala = names.find(".")
-            # geneNa = names[nafr-1:nala]
-            # seqInfo.append(geneNa)
-
             file_allname = readPath + names
             print("执行 " + names)
             fastaList = fasta(file_allname)
@@ -66,9 +63,6 @@ if __name__ == '__main__':
     # seqInfo_csv.write(",".join(seqInfo) + "\n")
 
     bigDict = big_dict(dictList)
-    # sdf = bigDict["zi last"]
-    print(sorted(bigDict.keys()),len(bigDict.keys()))
-    # print(sdf)
     write_sequence_file(bigDict, outPath, findSeqNaem=False)
     add_head(outPath)
     path_file_merge(outPath)
