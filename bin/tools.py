@@ -1,7 +1,7 @@
 import os
 
 
-def list_name(path="..\\src\\"):
+def list_name(path="..\\source\\"):
     """
     获取文件列表，判断是否有src文件目录
     :return: 返回一个src目录中的所有文件名的列表

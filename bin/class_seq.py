@@ -20,7 +20,7 @@ def cluster_seq():
     write_sequence_file()
     """
     dictList = []
-    readPath = "..\\src\\"
+    readPath = "..\\source\\"
     outPath = "..\\bulid\\class\\"
     for names in list_name(readPath):
         fileAllname = readPath + names

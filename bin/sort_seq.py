@@ -58,7 +58,7 @@ if __name__ == '__main__':
     write_sequence_file()
     """
     for names in list_name():
-        file_allname = "..\\src\\" + names
+        file_allname = "..\\source\\" + names
         print("执行 " + names)
         fileName = file_name(file_allname)
         fast = fasta(file_allname)
