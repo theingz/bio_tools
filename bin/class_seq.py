@@ -1,4 +1,4 @@
-from tools import *
+from bin.tools import *
 
 
 def use_sequence(readPath, outPath):
@@ -14,14 +14,14 @@ def use_sequence(readPath, outPath):
                 sequence_file.write(fast)
 
 
-if __name__ == '__main__':
+def cluster_seq():
     """主函数
     get_file()
     write_sequence_file()
     """
     dictList = []
-    readPath = ".\\src\\"
-    outPath = ".\\bulid\\cluster\\"
+    readPath = "..\\src\\"
+    outPath = "..\\bulid\\cluster\\"
     for names in list_name(readPath):
         fileAllname = readPath + names
         print("执行 " + names)
@@ -33,3 +33,6 @@ if __name__ == '__main__':
     write_sequence_file(bigDict, outPath)
     use_sequence(readPath, outPath)
     print("已完成")
+
+
+cluster_seq()

@@ -27,12 +27,17 @@ def file_name(file_allname: str):
     :return:
     """
     try:
-        # file_allname = input("输入你要分析出的文件,包括后缀名\n")
-        q = file_allname.rfind(".")
-        s = file_allname.rfind("\\")
-        file_name = file_allname[s + 1:q]
-        # print(q,s)
-        return file_name
+        if "\\" in file_allname:
+            # file_allname = input("输入你要分析出的文件,包括后缀名\n")
+            q = file_allname.rfind(".")
+            s = file_allname.rfind("\\")
+            file_name = file_allname[s + 1:q]
+            # print(q,s)
+            return file_name
+        else:
+            q = file_allname.rfind(".")
+            file_name = file_allname[:q]
+            return file_name
     except:
         print("请正确输入文件名称。")
 
@@ -48,13 +53,14 @@ def fasta(file_allname: str):
         # file_allname = input("输入你要分析出的文件,包括后缀名\n")
         f = open(file_allname).read()
         fasts = f.split(">")
+        fast_seq = []
         index = 0
         for fast in fasts:
             if fast:
                 fast = ">" + fast
-                fasts[index] = fast
+                fast_seq.append(fast)
                 index = index + 1
-        return fasts
+        return fast_seq
     except:
         print("请正确输入文件名称。")
 
@@ -77,7 +83,7 @@ def sequence_dict(fasta, fileName):
         c = i.find("[locus_tag")
         line_e = i.rfind("]")
         gene_key = i[b:c - 1]
-        i = ">" + fileName + " " + gene_key + i[line_e + 1:]
+        i = ">" + fileName + " " + gene_key + "\n" + i[line_e + 1:].replace("\n", "") + "\n"
         if i and gene_key:
             if gene_key in sequenceDict.keys():
                 sameDict[gene_key] = sequenceDict[gene_key] + i
@@ -134,9 +140,9 @@ def sequence_dict_2(fasta):
 
 
 # 已写完，用这个需要传入字典和不包括后缀的名称名，
-def write_sequence_file(sequenceDict, path=".\\bulid\\cluster\\", fileName="sequence"):
-    """分析出序列，得出文件
-    接收fasta列表，文件夹名称
+def write_sequence_file(sequenceDict, path=".\\bulid\\cluster\\", fileName="sequence", findSeqNaem=True):
+    """
+    接收一个字典，
     """
     # fileName = "Berchemia berchemiifolia"
     # sequenceDict = {}
@@ -148,13 +154,16 @@ def write_sequence_file(sequenceDict, path=".\\bulid\\cluster\\", fileName="sequ
         for fastas in sorted(items):
             sequence = fastas[1]
             gene = "_" + fastas[0]
-            if sequence:
+            if sequence and findSeqNaem:
                 a = a + 1
                 # sequence_name = str(a) + "_" + fileName + "_" + gene_title + ".fasta"
                 sequence_name = fileName + gene + ".fasta"
-                sequence_file = open(path + "\\" + sequence_name, 'w')
+                sequence_file = open(path + sequence_name, 'w')
                 sequence_file.write(sequence)
             else:
+                sequence_name = fastas[0] + ".fasta"
+                sequence_file = open(path + sequence_name, 'w')
+                sequence_file.write(sequence)
                 pass
                 # print("序列为空，未写入文件，{}".format(sequence))
         print("{}已写入到 bulid 文件夹中\n".format(fileName))
@@ -186,20 +195,20 @@ def write_sequence_file2(fasta, file_name="bulid"):
 
 
 # 未写完，不可用
-def dict_list():
-    """
-    接收字典
-    返回一个字典的list
-    """
-    dictList = []
-    for names in list_name():
-        file_allname = ".\src\\" + names
-        print("执行 " + names)
-        fileName = file_name(file_allname)
-        fast = fasta(file_allname)
-        dict = sequence_dict(fast, fileName)
-        dictList.append(dict)
-    return dictList
+# def dict_list():
+#     """
+#     接收字典
+#     返回一个字典的list
+#     """
+#     dictList = []
+#     for names in list_name():
+#         file_allname = ".\src\\" + names
+#         print("执行 " + names)
+#         fileName = file_name(file_allname)
+#         fast = fasta(file_allname)
+#         dict = sequence_dict(fast, fileName)
+#         dictList.append(dict)
+#     return dictList
 
 
 # 已写完，接收一个dict的list,返回大的dict
@@ -207,18 +216,25 @@ def big_dict(list):
     """
     接收一个dict的list,返回大的dict
     """
+    seqInfo = []
     bigDict = {}
-    for i_dict in list:
-        # print(i_dict)
-        for i in i_dict.keys():
-            # print(i)
-            if i in bigDict.keys():
-                bigDict[i] = bigDict[i] + i_dict[i]
+    for dicts in list:
+        for keys in dicts.keys():
+            if keys in bigDict.keys():
+                bigDict[keys] = bigDict[keys] + dicts[keys]
+                seqInfo.append(str(len(bigDict[keys])) )
             else:
-                bigDict[i] = i_dict[i]
-    # for i in bigDict.items():
-    #     print(i)
+                bigDict[keys] = dicts[keys]
+                seqInfo.append(str(len(bigDict[keys])) )
+    # seqInfo_csv = open('.\\dataInfor\\aut_sort\{}'.format("seqInfo.csv"), 'a')
+    # seqInfo_csv.write(",".join(seqInfo) + "\n")
+
     return bigDict
+
+def seq_infor(list):
+    """
+    接收一个dict的list字典，返回大字典的信息。
+    """
 
 
 # autoLable_seq.py
