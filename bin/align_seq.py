@@ -7,8 +7,8 @@ def align(names):
     """
     调取核心比对序列
     """
-    readPath = "..\\bulid\\cluster\\use\\"
-    outPath = "..\\bulid\\megax\\aligned2\\"
+    readPath = "..\\bulid\\class\\use\\"
+    outPath = "..\\bulid\\megax\\aligned\\"
     clustal_align_pro = "..\\mega_mao\\clustal_align_protein.mao"
     # clustal_align_pro = ".\\mega_mao\\clustal_align_nucleotide.mao"
     os.system("megacc -a {} -d {} -f Fasta -o {}".format(clustal_align_pro, readPath + names, outPath + names))
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     """
     start = time.time()
     threads = []
-    readPath = "..\\bulid\\cluster\\use\\"
+    readPath = "..\\bulid\\class\\use\\"
     thrNum = len(list_name(readPath))
     for i in range(thrNum):
         t = Thread(target=align, args=(list_name(readPath)[i],))
