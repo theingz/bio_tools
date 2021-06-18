@@ -12,7 +12,9 @@ git clone https://gitee.com/theing/bio_tools.git
 
 ​	或者直接下载本项目到您的使用目录
 
-2. 安装MEGA内核，因为使用的是win系统，所以需要安装这个内核，在Linux系统下不需要安装，后续有机会会开发适配Linux系统的程序。安装请选择Command Line（CC）， Windows版本安装。 [下载地址](https://www.baidu.com/link?url=3DdxZ5IYrOY3FY3aiEJCjzcq4N2QIFBv7-yiJp7lkffhVs1Gd1IXBMUVaehzkFct&wd=&eqid=c057cb900006ff7a0000000360093787)
+2. 安装MEGA-CC，因为使用的是win系统，所以需要安装这个内核，在Linux系统下不需要安装，后续有机会会开发适配Linux系统的程序。安装请选择Command Line（CC）， Windows版本安装。 [下载地址](https://www.baidu.com/link?url=3DdxZ5IYrOY3FY3aiEJCjzcq4N2QIFBv7-yiJp7lkffhVs1Gd1IXBMUVaehzkFct&wd=&eqid=c057cb900006ff7a0000000360093787)
+
+3. 安装Python解释器。
 
    
 
@@ -62,17 +64,18 @@ git clone https://gitee.com/theing/bio_tools.git
 
    功能介绍：有时候我们得到一个整个序列只有ATCG的序列文件，没有标注基因头信息，可以用到这个功能。
 
-   需要的头信息可以在文件里面更改。或者提供csv表格，每行的第一格（`str`）为基因名称，第二格(`int`)为起始位置，第二格(`int`)为终止位置，第三格(`+/-`)为正序或互补序列。
+   需要的头信息可以在文件里面更改。或者提供csv表格，每行的第一格为基因名称，第二格为起始位置，第二格为终止位置，第三格(`+/-`)为正序或互补序列。
 
    **注意：**
 
 - `dataInfor`为`csv`文件，格式如
 
   ```csv
-  accD,61098,62831,+
-  atpA,11306,12829,-
-  atpB,56556,58052,-
-  atpE,56158,56559,-
+  trnH-GUG,2,75,-,
+  psbA,421,1482,-,
+  trnK-UUU,1782,1816,-,exon2
+  matK,2092,3612,-,
+  trnK-UUU,4377,4413,-,exon1
   ```
 
 - `source`中`fasta`文件未标注的序列中第一行标注结尾为  `[]`  ，没有请自行添加
@@ -95,4 +98,4 @@ git clone https://gitee.com/theing/bio_tools.git
     python sort_seq.py
    ```
 
-   
+   如果该程序帮助到您，请给一刻五角星收藏，感谢对开源的支持。
