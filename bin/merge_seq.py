@@ -1,7 +1,6 @@
 from bin.tools import *
 import os
 
-
 def name_seq_dict(fastList: list):
     seqDict = {}
     csv2 = ['']
@@ -29,7 +28,6 @@ def name_seq_dict(fastList: list):
     # sequence_svc2.write(",".join(csv2) + "\n")
     return seqDict
 
-
 def add_head(path="..\\bulid\\marge\\"):
     """
     添加头信息头，
@@ -46,6 +44,7 @@ def add_head(path="..\\bulid\\marge\\"):
 
 
 if __name__ == '__main__':
+
     readPath = "..\\bulid\\megax\\aligned-58gene\\"
     outPath = "..\\bulid\\merged\\aligned-58gene\\"
     mkdir(outPath)

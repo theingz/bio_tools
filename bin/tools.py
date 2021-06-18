@@ -222,11 +222,11 @@ def write_merge(dict, fileName="sequence"):
 
     # dictw = {}
     big_str = ""
-    mkdir(".\\bulid\{}".format(fileName))
+    mkdir("..\\bulid\{}".format(fileName))
     for gene in sorted(dict.keys()):
         big_str = big_str + dict[gene] + "\n"
     sequence_name = fileName + ".fasta"
-    sequence_file = open('.\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
+    sequence_file = open('..\\bulid\{}\{}'.format(fileName, sequence_name), 'w')
     sequence_file.write(big_str)
 
 

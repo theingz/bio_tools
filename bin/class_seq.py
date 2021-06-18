@@ -2,6 +2,9 @@ from bin.tools import *
 
 
 def use_sequence(readPath, outPath):
+    """
+    找出可参与比对的基因
+    """
     mkdir(outPath + "\\use")
     for file in list_name(outPath):
         if os.path.isfile(outPath + file):
