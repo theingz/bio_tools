@@ -12,7 +12,7 @@ def get_lable_list():
     : 返回list [['accD', '61098', '62831', '+'], ['atpA', '11306', '12829', '-']]
     """
     try:
-        file = open(".\source\lable.csv")
+        file = open("..\\dataInfor\lable.csv")
         ls = []
         for line in file:
             line = line.replace("\n", "")
@@ -20,8 +20,8 @@ def get_lable_list():
         # print(ls)
         return ls
     except:
-        mkdir(".\source")
-        print("请在source文件夹中放入lable.csv文件")
+        mkdir("..\\dataInfor")
+        print("请在dataInfor文件夹中放入lable.csv文件")
         sys.exit()
 
 
@@ -115,9 +115,11 @@ def dict(full_sequence: str, lable_list):
     return sequenceDict["gene"]
 
 
+# readpath = /source/
+# outpath = /build/
 if __name__ == '__main__':
     for names in list_name():
-        file_allname = ".\src\\" + names
+        file_allname = "..\\source\\" + names
         print("执行 " + names)
         fileName = file_name(file_allname)
         fullSequence = full_sequence(file_allname)
