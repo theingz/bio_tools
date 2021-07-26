@@ -1,5 +1,6 @@
-from bin.tools import *
+from tools import *
 import os
+import sys
 
 def name_seq_dict(fastList: list):
     seqDict = {}
@@ -45,7 +46,7 @@ def add_head(path="..\\bulid\\marge\\"):
 
 if __name__ == '__main__':
 
-    readPath = "..\\bulid\\megax\\align\\"
+    readPath = "..\\bulid\\megax\\aligned\\"
     outPath = "..\\bulid\\merged\\aligned\\"
     mkdir(outPath)
     listName = list_name(readPath)
@@ -65,4 +66,5 @@ if __name__ == '__main__':
     write_sequence_file(bigDict, outPath, findSeqNaem=False)
     add_head(outPath)
     path_file_merge(outPath)
+    print("内容已写入{}文件夹，打开 allsequence.fas 即可".format(outPath))
     print("已完成")

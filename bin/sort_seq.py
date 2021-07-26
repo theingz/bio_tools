@@ -1,4 +1,4 @@
-from bin.tools import *
+from tools import *
 
 
 # file_allname = input("输入你要分析出的文件,包括后缀名\n")

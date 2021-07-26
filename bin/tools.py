@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 def list_name(path="..\\source\\"):
@@ -162,6 +163,7 @@ def write_sequence_file(sequenceDict, path="..\\bulid\\cluster\\", fileName="seq
         print("{}已写入到 bulid 文件夹中\n".format(fileName))
     else:
         print("序列为空，未写入文件")
+        sys.exit()
 
 
 # 已写完，看需求可用

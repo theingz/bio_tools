@@ -1,4 +1,4 @@
-from bin.tools import *
+from tools import *
 
 
 def use_sequence(readPath, outPath):
