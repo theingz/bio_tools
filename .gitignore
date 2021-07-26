@@ -4,7 +4,7 @@ test/
 .idea/
 bulid/
 dataInfor/
-source/
+source*/
 __pycache__/
 out_species_sequence.py
 #class_seq.py

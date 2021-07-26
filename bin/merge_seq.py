@@ -45,8 +45,8 @@ def add_head(path="..\\bulid\\marge\\"):
 
 if __name__ == '__main__':
 
-    readPath = "..\\bulid\\megax\\aligned-58gene\\"
-    outPath = "..\\bulid\\merged\\aligned-58gene\\"
+    readPath = "..\\bulid\\megax\\align\\"
+    outPath = "..\\bulid\\merged\\aligned\\"
     mkdir(outPath)
     listName = list_name(readPath)
     dictList = []
