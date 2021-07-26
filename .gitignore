@@ -1,15 +1,7 @@
-caogao.py
 test/
-草稿*
 .idea/
 bulid/
-dataInfor/
-source*/
 __pycache__/
-out_species_sequence.py
-#class_seq.py
 .gitignore
-all.json
 mega_mao/
-aut_compare_seq.py
 main.py
