@@ -6,13 +6,13 @@ import sys
 
 # 缺少标记好的字典
 
-def get_lable_list():
+def get_lable_list(lablepath):
     """
     找到lable.csv文件
     : 返回list [['accD', '61098', '62831', '+'], ['atpA', '11306', '12829', '-']]
     """
     try:
-        file = open("..\\dataInfor\lable.csv")
+        file = open(lablepath)
         ls = []
         for line in file:
             line = line.replace("\n", "")
@@ -115,14 +115,18 @@ def dict(full_sequence: str, lable_list):
     return sequenceDict["gene"]
 
 
-# readpath = /source/
-# outpath = /build/
+readpath = "..\\dataInfor\\source\\"
+outpath = "/build/"
+
 if __name__ == '__main__':
-    for names in list_name():
-        file_allname = "..\\source\\" + names
+    for names in list_name(readpath):
+        file_allname = "..\\dataInfor\\source\\" + names
         print("执行 " + names)
+        lable_name = names.split(".fasta")[0] + ".csv"
+        lablepath = "..\\dataInfor\\csv_lable\\{}".format(lable_name)
+        print(lablepath)
         fileName = file_name(file_allname)
         fullSequence = full_sequence(file_allname)
-        dictw = dict(fullSequence, get_lable_list())
+        dictw = dict(fullSequence, get_lable_list(lablepath))
         write_merge(dictw, fileName)
     print("已完成")
